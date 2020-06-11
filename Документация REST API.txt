@@ -1,0 +1,50 @@
+GET http://localhost:8080/api/getStudents -- Возвращает всех студентов из БД
+Возвращается:
+[
+    {
+        "id": 1,
+        "name": "Кумакин Филипп Сергеевич",
+        "passport": "666666666"
+    },
+    {
+        "id": 2,
+        "name": "Иванов Иван Иванович",
+        "passport": "6666"
+    }
+]
+
+POST http://localhost:8080/api/addStudent -- Добавление нового студента в БД
+Body:
+{
+	    "name": "test3",
+    	"passport": "test3"
+}
+Возвращается:
+{
+    "id": 6,
+    "name": "test3",
+    "passport": "test3"
+}
+
+POST http://localhost:8080/api/delStudent -- Удаление студента из БД
+Body:
+{
+		"id": 2,
+	    "name": "Иванов Иван Иванович",
+    	"passport": "6666"
+}
+Возвращается: 1
+
+GET http://localhost:8080/api/chanStudent -- Изменение записи студента в БД
+Body:
+{
+    "id": 6,
+    "name": "Иванов Иван Иванович",
+    "passport": "6666"
+}
+Возвращается:
+{
+    "id": 6,
+    "name": "Иванов Иван Иванович",
+    "passport": "6666"
+}
