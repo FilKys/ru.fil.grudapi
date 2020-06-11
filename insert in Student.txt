@@ -1,0 +1,2 @@
+INSERT INTO public.student(name, pasport)
+	VALUES ('Кумакин Филипп Сергеевич', '666666666'),('Иваноа Иван Иванович', '666666667');
