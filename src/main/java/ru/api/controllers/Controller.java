@@ -25,8 +25,8 @@ public class Controller {
         return studentRepository.findAll();
     }
 
-    @PostMapping("/chanStudent")
-    public Student findAll(@RequestBody Student student) {
+    @PutMapping("/updateStudents")
+    public Student updateStudents(@RequestBody Student student) {
         studentRepository.update(student.getId(),
                 student.getName(),
                 student.getPassport());
