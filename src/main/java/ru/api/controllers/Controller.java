@@ -1,5 +1,6 @@
 package ru.api.controllers;
 
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.api.entity.Student;
@@ -24,12 +25,12 @@ public class Controller {
         return studentRepository.findAll();
     }
 
-    @GetMapping("/chanStudent")
-    public Optional<Student> findAll(@RequestBody Student student) {
+    @PostMapping("/chanStudent")
+    public Student findAll(@RequestBody Student student) {
         studentRepository.update(student.getId(),
                 student.getName(),
                 student.getPassport());
-        return studentRepository.findById(student.getId());
+        return studentRepository.findById(student.getId()).get();
     }
 
     @PostMapping("/addStudent")
@@ -37,7 +38,7 @@ public class Controller {
         return studentRepository.save(student);
     }
 
-    @PostMapping("/delStudent")
+    @DeleteMapping("/delStudent")
     public void delStudent(@RequestBody Student student) {
         studentRepository.delete(student);
     }
