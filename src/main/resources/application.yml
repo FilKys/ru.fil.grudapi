@@ -11,6 +11,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  liquibase:
+    change-log: classpath:migrationdb/master.xml
 logging:
   level:
     root: info
