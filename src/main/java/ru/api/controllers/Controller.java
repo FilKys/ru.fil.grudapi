@@ -1,13 +1,11 @@
 package ru.api.controllers;
 
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.api.entity.Student;
 import ru.api.jpa.StudentRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/")
@@ -26,21 +24,47 @@ public class Controller {
     }
 
     @PutMapping("/updateStudents")
-    public Student updateStudents(@RequestBody Student student) {
-        studentRepository.update(student.getId(),
-                student.getName(),
-                student.getPassport());
-        return studentRepository.findById(student.getId()).get();
+    public Object updateStudents(@RequestParam("id") String idString,
+                                 @RequestParam(value = "name", defaultValue = "") String name,
+                                 @RequestParam(value = "passport", defaultValue = "") String passport) {
+        Integer id = 0;
+        try {
+            id = Integer.getInteger(idString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Bad ID";
+        }
+        studentRepository.update(id, name, passport);
+        return studentRepository.findById(id).get();
     }
 
     @PostMapping("/addStudent")
-    public Student addStudent(@RequestBody Student student) {
+    public Object addStudent(@RequestParam("id") String idString,
+                             @RequestParam(value = "name", defaultValue = "") String name,
+                             @RequestParam(value = "passport", defaultValue = "") String passport) {
+        Student student = new Student();
+        Integer id = 0;
+        try {
+            id = Integer.getInteger(idString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Bad ID";
+        }
+        student.setId(id);
+        student.setName(name);
+        student.setPassport(passport);
         return studentRepository.save(student);
     }
 
     @DeleteMapping("/delStudent")
-    public void delStudent(@RequestBody Student student) {
-        studentRepository.delete(student);
+    public void delStudent(@RequestParam("id") String idString) {
+        Integer id = 0;
+        try {
+            id = Integer.getInteger(idString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        studentRepository.deleteById(id);
     }
 
 
