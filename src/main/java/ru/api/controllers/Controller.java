@@ -20,12 +20,8 @@ public class Controller {
 
     @GetMapping("/getStudents")
     public List<Student> findAll() {
-        List<Student> studentList = studentRepository.findAll();
-        if (studentList.size() > 0)
-            return studentList.subList(0, studentList.size() - 1);
-        else
-            return studentList;
-    }
+        return studentRepository.findAll();
+       }
 
     @PutMapping("/updateStudents")
     public Object updateStudents(@RequestParam("id") String idString,
