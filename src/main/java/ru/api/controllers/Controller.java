@@ -55,7 +55,8 @@ public class Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        studentRepository.delete(studentRepository.findById(id).get());
+        Student st = studentRepository.findById(id).get();
+        studentRepository.delete(st);
     }
 
 
