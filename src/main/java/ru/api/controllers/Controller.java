@@ -20,7 +20,11 @@ public class Controller {
 
     @GetMapping("/getStudents")
     public List<Student> findAll() {
-        return studentRepository.findAll();
+        List<Student> studentList = studentRepository.findAll();
+        if (studentList.size() > 0)
+            return studentList.subList(0, studentList.size() - 1);
+        else
+            return studentList;
     }
 
     @PutMapping("/updateStudents")
