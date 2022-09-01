@@ -39,18 +39,9 @@ public class Controller {
     }
 
     @PostMapping("/addStudent")
-    public Object addStudent(@RequestParam("id") String idString,
-                             @RequestParam(value = "name", defaultValue = "") String name,
+    public Object addStudent(@RequestParam(value = "name", defaultValue = "") String name,
                              @RequestParam(value = "passport", defaultValue = "") String passport) {
         Student student = new Student();
-        Integer id = 0;
-        try {
-            id = Integer.getInteger(idString);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Bad ID";
-        }
-        student.setId(id);
         student.setName(name);
         student.setPassport(passport);
         return studentRepository.save(student);
