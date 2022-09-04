@@ -2,6 +2,7 @@ package ru.api.modles;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,20 +21,10 @@ public class Student {
     private Integer id;
 
     @Column(name = "name", nullable = false)
+    @JsonProperty(defaultValue = "")
     private String name;
 
     @Column(name = "passport", nullable = false)
+    @JsonProperty(defaultValue = "")
     private String passport;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPassport() {
-        return passport;
-    }
 }

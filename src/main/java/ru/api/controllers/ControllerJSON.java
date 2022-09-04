@@ -23,16 +23,13 @@ public class ControllerJSON {
 
     @GetMapping("/getStudents")
     @ResponseBody
-    public ViewModelsStudent findAll(@RequestBody Pagination pagination) {
+    public ViewModelsStudent findAll(@RequestBody(required = false) Pagination pagination) {
         return studentsService.getStudents(pagination);
     }
 
     @PutMapping("/updateStudents")
-    public Student updateStudents(@RequestBody Student student) {
-        studentRepository.update(student.getId(),
-                student.getName(),
-                student.getPassport());
-        return studentRepository.findById(student.getId()).get();
+    public Student updateStudents(@RequestBody(required = false) Student student) {
+        return studentsService.updateStudent(student);
     }
 
     @PostMapping("/addStudent")

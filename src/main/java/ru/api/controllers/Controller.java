@@ -33,15 +33,7 @@ public class Controller {
     public Object updateStudents(@RequestParam("id") String idString,
                                  @RequestParam(value = "name", defaultValue = "") String name,
                                  @RequestParam(value = "passport", defaultValue = "") String passport) {
-        Integer id = 0;
-        try {
-            id = Integer.parseInt(idString);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Bad ID";
-        }
-        studentRepository.update(id, name, passport);
-        return studentRepository.findById(id).get();
+        return studentsService.updateStudent(idString,name,passport);
     }
 
     @PostMapping("/addStudent")

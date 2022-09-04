@@ -34,4 +34,30 @@ public class StudentsService {
     public ViewModelsStudent getStudents(String strLimit,String strOffset){
         return getStudents(paginationService.getPagination(strLimit,strOffset));
     }
+
+    public Student updateStudent(String idString, String name, String passport) {
+        Integer id = 0;
+        try {
+            id = Integer.parseInt(idString);
+            Student student = new Student();
+            student.setId(id);
+            student.setName(name);
+            student.setPassport(passport);
+            return updateStudent(student);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Student();
+        }
+    }
+
+    public Student updateStudent(Student student) {
+        if (student != null && student.getId() != null) {
+            studentRepository.update(student.getId(),
+                    student.getName(),
+                    student.getPassport());
+            return studentRepository.findById(student.getId()).orElse(new Student());
+        } else {
+            return new Student();
+        }
+    }
 }
