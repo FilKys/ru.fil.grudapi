@@ -1,4 +1,4 @@
-package ru.api.entity;
+package ru.api.modles;
 
 import javax.persistence.*;
 

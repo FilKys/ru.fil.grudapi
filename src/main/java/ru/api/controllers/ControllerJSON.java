@@ -2,25 +2,29 @@ package ru.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.api.entity.Student;
-import ru.api.jpa.StudentRepository;
-
-import java.util.List;
+import ru.api.modles.Pagination;
+import ru.api.modles.Student;
+import ru.api.modles.ViewModelsStudent;
+import ru.api.repositories.StudentRepository;
+import ru.api.services.StudentsService;
 
 @RestController
 @RequestMapping("api-json/")
 public class ControllerJSON {
 
     private final StudentRepository studentRepository;
+    private final StudentsService studentsService;
 
     @Autowired
-    public ControllerJSON(StudentRepository studentRepositories) {
+    public ControllerJSON(StudentRepository studentRepositories, StudentsService studentsService) {
         this.studentRepository = studentRepositories;
+        this.studentsService = studentsService;
     }
 
     @GetMapping("/getStudents")
-    public List<Student> findAll() {
-        return studentRepository.findAll();
+    @ResponseBody
+    public ViewModelsStudent findAll(@RequestBody Pagination pagination) {
+        return studentsService.getStudents(pagination);
     }
 
     @PutMapping("/updateStudents")
