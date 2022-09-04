@@ -33,8 +33,8 @@ public class ControllerJSON {
     }
 
     @PostMapping("/addStudent")
-    public Student addStudent(@RequestBody Student student) {
-        return studentRepository.save(student);
+    public Student addStudent(@RequestBody(required = false) Student student) {
+        return studentsService.saveStudent(student);
     }
 
     @DeleteMapping("/delStudent")

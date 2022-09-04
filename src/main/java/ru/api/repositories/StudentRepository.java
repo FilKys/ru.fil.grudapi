@@ -25,4 +25,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     @Query(value = "SELECT * FROM student limit :limit offset :offset",nativeQuery = true)
     List<Student> findAll(@Param("limit") Integer limit, @Param("offset") Integer offset);
+
+    boolean existsByPassport(String passport);
 }

@@ -23,7 +23,6 @@ public class StudentsService {
         this.viewBuilderService = viewBuilderService;
     }
 
-
     public ViewModelsStudent getStudents(Pagination pagination) {
         if (pagination == null) pagination = paginationService.getDefault();
         List<Student> studentList = studentRepository.findAll(pagination.getLimit(), pagination.getOffset());
@@ -55,9 +54,28 @@ public class StudentsService {
             studentRepository.update(student.getId(),
                     student.getName(),
                     student.getPassport());
-            return studentRepository.findById(student.getId()).orElse(new Student());
+            return findById(student.getId());
         } else {
             return new Student();
         }
+    }
+
+    public Student saveStudent(Student student) {
+        student.setId(null);
+        if (student.getName() != null && student.getPassport() != null
+                && !studentRepository.existsByPassport(student.getPassport())) {
+            return studentRepository.save(student);
+        } else return new Student();
+    }
+
+    public Student findById(int id){
+        return studentRepository.findById(id).orElse(new Student());
+    }
+
+    public Object saveStudent(String name, String passport) {
+        Student student = new Student();
+        student.setName(name);
+        student.setPassport(passport);
+        return saveStudent(student);
     }
 }

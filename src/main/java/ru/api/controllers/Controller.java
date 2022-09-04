@@ -39,10 +39,7 @@ public class Controller {
     @PostMapping("/addStudent")
     public Object addStudent(@RequestParam(value = "name", defaultValue = "") String name,
                              @RequestParam(value = "passport", defaultValue = "") String passport) {
-        Student student = new Student();
-        student.setName(name);
-        student.setPassport(passport);
-        return studentRepository.save(student);
+        return studentsService.saveStudent(name,passport);
     }
 
     @DeleteMapping("/delStudent")
