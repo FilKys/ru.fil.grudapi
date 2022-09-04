@@ -44,14 +44,7 @@ public class Controller {
 
     @DeleteMapping("/delStudent")
     public void delStudent(@RequestParam("id") String idString) {
-        Integer id = 0;
-        try {
-            id = Integer.parseInt(idString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Student st = studentRepository.findById(id).get();
-        studentRepository.delete(st);
+        studentsService.deleteStudent(idString);
     }
 
 

@@ -38,8 +38,8 @@ public class ControllerJSON {
     }
 
     @DeleteMapping("/delStudent")
-    public void delStudent(@RequestBody Student student) {
-        studentRepository.delete(student);
+    public void delStudent(@RequestBody(required = false) Student student) {
+        studentsService.deleteStudent(student);
     }
 
 

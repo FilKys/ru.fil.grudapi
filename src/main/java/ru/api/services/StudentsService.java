@@ -27,17 +27,16 @@ public class StudentsService {
         if (pagination == null) pagination = paginationService.getDefault();
         List<Student> studentList = studentRepository.findAll(pagination.getLimit(), pagination.getOffset());
         pagination.setTotalCount(studentRepository.count());
-        return viewBuilderService.getListStudents(studentList,pagination);
+        return viewBuilderService.getListStudents(studentList, pagination);
     }
 
-    public ViewModelsStudent getStudents(String strLimit,String strOffset){
-        return getStudents(paginationService.getPagination(strLimit,strOffset));
+    public ViewModelsStudent getStudents(String strLimit, String strOffset) {
+        return getStudents(paginationService.getPagination(strLimit, strOffset));
     }
 
     public Student updateStudent(String idString, String name, String passport) {
-        Integer id = 0;
         try {
-            id = Integer.parseInt(idString);
+            int id = Integer.parseInt(idString);
             Student student = new Student();
             student.setId(id);
             student.setName(name);
@@ -68,7 +67,7 @@ public class StudentsService {
         } else return new Student();
     }
 
-    public Student findById(int id){
+    public Student findById(int id) {
         return studentRepository.findById(id).orElse(new Student());
     }
 
@@ -77,5 +76,22 @@ public class StudentsService {
         student.setName(name);
         student.setPassport(passport);
         return saveStudent(student);
+    }
+
+    public void deleteStudent(Student student) {
+        if (student != null && student.getId() != null) {
+            studentRepository.deleteById(student.getId());
+        }
+    }
+
+    public void deleteStudent(String idString) {
+        try {
+            int id = Integer.parseInt(idString);
+            Student student = new Student();
+            student.setId(id);
+            deleteStudent(student);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
