@@ -3,9 +3,9 @@ spring:
     active: '@spring.profiles.active@'
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/students
-    username: postgres
-    password: 123
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/students
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:123}
   jpa:
     show-sql: true
     properties:

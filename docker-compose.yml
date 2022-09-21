@@ -1,0 +1,33 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "grudapi"
+    container_name: grudApi
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: 192.168.0.1
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: kfs
+      DATABASE_PASSWORD: kfs
+
+  db:
+    image: postgres:13.6
+    container_name: postgresGrud
+    restart: always
+    environment:
+      POSTGRES_DB: "students"
+      POSTGRES_USER: "kfs"
+      POSTGRES_PASSWORD: "kfs"
+    ports:
+      - "5432:5432"
+
+networks:
+  default:
+    external:
+      name: docker-network
